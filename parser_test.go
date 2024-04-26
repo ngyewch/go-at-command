@@ -37,18 +37,22 @@ func Test1(t *testing.T) {
 
 		atCmd0, ok := atCmds.Commands[0].(ATReadCommand)
 		assert.True(t, ok)
+		assert.Equal(t, "+CGMI", atCmd0.CommandName)
 		assert.Equal(t, "+CGMI?", atCmd0.String())
 
 		atCmd1, ok := atCmds.Commands[1].(ATTestCommand)
 		assert.True(t, ok)
+		assert.Equal(t, "+CGMI", atCmd1.CommandName)
 		assert.Equal(t, "+CGMI=?", atCmd1.String())
 
 		atCmd2, ok := atCmds.Commands[2].(ATExecuteCommand)
 		assert.True(t, ok)
+		assert.Equal(t, "+CGMI", atCmd2.CommandName)
 		assert.Equal(t, "+CGMI", atCmd2.String())
 
 		atCmd3, ok := atCmds.Commands[3].(ATSetCommand)
 		assert.True(t, ok)
+		assert.Equal(t, "+CGMI", atCmd3.CommandName)
 		assert.Equal(t, 5, len(atCmd3.Values))
 		assert.Equal(t, "abc", atCmd3.Values[0])
 		assert.Equal(t, "123", atCmd3.Values[1])

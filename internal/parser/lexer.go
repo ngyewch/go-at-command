@@ -9,7 +9,7 @@ var atLexer = lexer.MustStateful(lexer.Rules{
 		{"AT", "AT", lexer.Push("Commands")},
 	},
 	"Commands": {
-		{"CommandName", "\\+?[A-Z]+", lexer.Push("Command")},
+		{"CommandName", "(\\+|&)?[A-Z][A-Z0-9]*", lexer.Push("Command")},
 	},
 	"Command": {
 		{"TestModifier", "=\\?", nil},
