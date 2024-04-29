@@ -1,7 +1,10 @@
 package parser
 
 import (
+	"bytes"
+	"fmt"
 	"github.com/alecthomas/participle/v2"
+	"github.com/alecthomas/participle/v2/lexer"
 	"strconv"
 )
 
@@ -95,4 +98,28 @@ func NewParser() (*Parser, error) {
 
 func (p *Parser) Parse(text string) (*ATCommands, error) {
 	return p.parser.ParseString("", text)
+}
+
+func (p *Parser) LexerSymbolMap() map[lexer.TokenType]string {
+	m := make(map[lexer.TokenType]string)
+	for symbol, tokenType := range p.parser.Lexer().Symbols() {
+		m[tokenType] = symbol
+	}
+	return m
+}
+
+func (p *Parser) Lex(text string) ([]lexer.Token, error) {
+	return p.parser.Lex("", bytes.NewReader([]byte(text)))
+}
+
+func (p *Parser) DumpTokens(text string) error {
+	tokens, err := p.Lex(text)
+	if err != nil {
+		return err
+	}
+	symbolMap := p.LexerSymbolMap()
+	for _, token := range tokens {
+		fmt.Printf("%s [%s] (%s)\n", token.Value, symbolMap[token.Type], token.Pos)
+	}
+	return nil
 }

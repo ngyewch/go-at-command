@@ -24,7 +24,8 @@ var atLexer = lexer.MustStateful(lexer.Rules{
 	},
 	"String": {
 		{"Escaped", `\\.`, nil},
-		{"Chars", `[^",\\]+`, nil},
+		{"Chars", `[^",;\\]+`, nil},
+		lexer.Return(),
 	},
 	"QuotedString": {
 		{"QuotedEscaped", `\\.`, nil},

@@ -50,3 +50,7 @@ func (p *Parser) Parse(text string) (*ATCommands, error) {
 	}
 	return &atCommands, nil
 }
+
+func (p *Parser) DumpTokens(text string) error {
+	return p.parser.DumpTokens(text)
+}
